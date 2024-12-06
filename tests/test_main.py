@@ -39,3 +39,37 @@ def test_list_tasks(todo_list):
     assert len(tasks) == 2
     assert tasks[0].title == "Task 1"
     assert tasks[1].title == "Task 2"
+
+
+# Novos testes
+
+def test_mark_nonexistent_task_completed(todo_list):
+    with pytest.raises(ValueError, match="Task not found"):
+        todo_list.mark_task_completed("Nonexistent Task")
+
+
+def test_add_duplicate_tasks(todo_list):
+    todo_list.add_task("Task 1")
+    todo_list.add_task("Task 1")  # Permitir tarefas com títulos iguais
+    assert len(todo_list.tasks) == 2
+    assert todo_list.tasks[0].title == "Task 1"
+    assert todo_list.tasks[1].title == "Task 1"
+
+
+def test_list_empty_todo_list(todo_list):
+    tasks = todo_list.list_tasks()
+    assert len(tasks) == 0
+
+
+def test_remove_task_with_special_characters(todo_list):
+    todo_list.add_task("Task@123", "Special characters in title")
+    removed_task = todo_list.remove_task("Task@123")
+    assert removed_task.title == "Task@123"
+    assert len(todo_list.tasks) == 0
+
+
+def test_task_str_representation(todo_list):
+    task = todo_list.add_task("Task 1", "Task description")
+    assert str(task) == "Task 1 - ✘ - Task description"
+    task.mark_completed()
+    assert str(task) == "Task 1 - ✔ - Task description"
