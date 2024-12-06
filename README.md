@@ -18,7 +18,7 @@ Um programa simples de lista de tarefas escrito em Python. Este programa permite
 │   └── main.py          # Código principal do programa
 ├── tests/
 │   ├── __init__.py
-│   └── test_main.py      # Testes unitários
+│   └── test_main.py      # Testes usando pytest
 └── .github/
     └── workflows/
         └── ci.yml       # Configuração de CI/CD para GitHub Actions
@@ -27,6 +27,7 @@ Um programa simples de lista de tarefas escrito em Python. Este programa permite
 ## Requisitos
 
 - Python 3.8 ou superior
+- `pytest` para rodar os testes
 
 ## Instalação
 
@@ -77,24 +78,34 @@ todo.remove_task("Estudar Python")
 
 ## Testes
 
-Execute os testes unitários para verificar se o programa está funcionando corretamente:
+Os testes são escritos usando o `pytest`. Para executá-los:
 
-```bash
-python -m unittest discover tests
+1. Certifique-se de que o `pytest` está instalado:
+   ```bash
+   pip install pytest
+   ```
+
+2. Rode os testes:
+   ```bash
+   pytest
+   ```
+
+Se todos os testes passarem, você verá uma saída semelhante a:
+```
+============================= test session starts ==============================
+collected 5 items
+
+tests/test_main.py .....                                               [100%]
+
+============================== 5 passed in 0.02s ==============================
 ```
 
 ## CI/CD com GitHub Actions
 
-Este projeto utiliza GitHub Actions para:
+Este projeto usa GitHub Actions para garantir integração contínua. O workflow está configurado para:
 
-- Testar automaticamente o código em **Ubuntu**, **MacOS** e **Windows**.
-- Garantir que todos os commits sejam testados.
+- Executar os testes automaticamente em **Ubuntu**, **MacOS** e **Windows** a cada `push` ou `pull request` para o branch `main`.
 
 ### Configuração do workflow
 
 Veja o arquivo de workflow em `.github/workflows/ci.yml`.
-
-
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
