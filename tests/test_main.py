@@ -1,5 +1,5 @@
 import pytest
-from ..todo_list.main import ToDoList, Task
+from todo_list.main import ToDoList, Task
 
 
 @pytest.fixture
